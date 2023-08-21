@@ -1,0 +1,25 @@
+.tasks {
+  display: flex;
+  padding: 12px 10px;
+  flex-direction: row;
+  border-radius: 4px;
+  border: 1px solid #f3e1df;
+  background: #fff;
+  margin-top: 12px;
+  justify-content: flex-start;
+  align-items: center;
+}
+.input-task {
+  border: none;
+  outline: none;
+  border-bottom: 0.5px solid #999;
+  weight: 350%;
+}
+.checkbox {
+  width: 16px;
+  height: 16px;
+  margin-right: 10px;
+}
+.checked{
+  text-decoration-line: line-through;
+}

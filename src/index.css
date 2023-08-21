@@ -1,0 +1,89 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+.container {
+  background-color: #fff;
+  max-width: 1060px;
+  margin: auto;
+  height: 100vh;
+}
+.title-header {
+  color: #3a3a3a;
+  font-family: Inter;
+  font-size: 34px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+.desc-header {
+  color: #3a3a3a;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 30px;
+  margin-top: 15px;
+}
+
+.mt-46 {
+  margin-top: 46px;
+}
+.pt-46 {
+  padding-top: 46px;
+}
+.mt-70 {
+  margin-top: 70px;
+}
+.flex {
+  display: flex;
+}
+.grid {
+  display: flex;
+}
+.gap-20 {
+  gap: 20px;
+}
+.col-container {
+  display: flex;
+  width: 340px;
+  height: 75vh;
+  padding: 20px 20px 30px 20px;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-shrink: 0;
+  border-radius: 10px;
+}
+.todo-col {
+  background: #fef4f3;
+}
+.doing-col {
+  background: #fffbf2;
+}
+.done-col {
+  background: #f4f9f3;
+}
+.col-title-container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 10px;
+  justify-content: space-between;
+}
+.todo-col-title {
+  color: #6e1e29;
+}
+.doing-col-title {
+  color: #795b19;
+}
+.done-col-title {
+  color: #286c1a;
+}
+.col-title-task-count {
+  color: #d4afb4;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}

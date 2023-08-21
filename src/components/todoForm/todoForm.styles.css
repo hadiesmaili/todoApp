@@ -1,0 +1,48 @@
+.board-wrap{
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 100% ;
+    height: 100vh;
+    gap: 20px;
+}
+
+.category{
+    flex-grow: 1;
+    width: 340px;
+    height: 75vh;
+    /* margin:16px 8px; */
+    border-radius: 10px;
+    
+}
+
+.category-card-wrap{
+    display: flex;
+    flex-direction: column;
+    padding: 0px 5px ;
+    /* background-color: #fef4f3; */
+    border-radius: 10px;
+    height:70vh;
+}
+
+.category-card-title{
+    padding: 10px;
+    font-family: Inter;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.tasks-wrap{
+    padding: 10px;
+}
+
+
+.drag-bg{
+    background-color: #d9dadb;
+    color: #d9dadb ;
+}
+
+#onDrag{
+    background-color: cyan;
+}

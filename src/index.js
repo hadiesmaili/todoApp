@@ -4,10 +4,14 @@ import 'reset-css';
 import 'normalize.css';
 import './index.css';
 
+import StoreProvider from './contexts/StoreContext';
+
 const App = lazy(() => import('./pages/App'));
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    <StoreProvider>
+      <App />
+    </StoreProvider>
   </React.StrictMode>
 );

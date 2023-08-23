@@ -1,6 +1,11 @@
+@font-face {
+  font-family: 'Inter';
+  src: url('./assets/Inter-Regular.ttf'), url('./assets/Inter-Medium.ttf'), url('./assets/Inter-Bold.ttf');
+}
 body {
   margin: 0;
   padding: 0;
+  font-family: Inter;
 }
 .container {
   background-color: #fff;
@@ -86,4 +91,10 @@ body {
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+}
+.pointer {
+  cursor: pointer;
+}
+.draggable {
+  cursor: grab;
 }

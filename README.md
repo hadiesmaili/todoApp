@@ -17,8 +17,5 @@ $ npm run start || npm run start-win
 ```
 
 # Screenshot
-## 1
-# ![Todo](assets/screenshot/Screenshot-1.png)
-## 2
-<img align="right" width="230" height="230" src="assets/screenshot/Screenshot-1.png">
+<img align="right" width="100%" height="100%"  style="border-radius: 16px; size: contain;"  src="src/assets/screenshot/Screenshot-1.png">
 

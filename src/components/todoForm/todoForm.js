@@ -2,42 +2,50 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useStore } from '../../contexts/StoreContext';
 import { colorPollet } from './todoForm.types';
 import TodoItem from '../todoItem/todoItem';
-import './todoForm.styles.css';
 import { generateRandomNumber } from '../../lib/util/Generator';
 import { Storage } from '../../lib/util';
+import { PlusSVG } from '../../assets/icons/icons';
+import './todoForm.styles.css';
 
-//todo: move to icons folder in assets
-export const PlusSVG = ({ color, ...other }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" {...other}>
-    <rect x="5.14282" width="1.71429" height="12" rx="0.857143" fill={color} />
-    <rect y="6.85714" width="1.71429" height="12" rx="0.857143" transform="rotate(-90 0 6.85714)" fill={color} />
-  </svg>
-);
+/**
+ * Renders a form for managing todo items.
+ */
 function TodoForm() {
+  // Ref to the currently dragged item
   const item = useRef();
-  const { todos, addTodo, deleteTodo, updateTodo } = useStore();
+  // Get todos and related functions from the store
+  const { todos, addTodo, deleteTodo, updateTodo, doneTodo } = useStore();
+  // State for the list of todos
   const [list, setList] = useState([]);
 
+  // State for dragging and saving to local storage
   const [state, setState] = useState({
     dragging: false,
     dragEnter: false,
     isSaveingToLocalStorage: false,
   });
-
+  /**
+   * Update the list of todos and save to local storage when todos changes.
+   */
   useEffect(() => {
-    if(todos.length === 0) return;
+    if (todos.length === 0) return;
     setList(todos);
     setState((prev) => ({ ...prev, isSaveingToLocalStorage: false }));
     Storage.set('todoList', [...todos]);
   }, [todos, state.isSaveingToLocalStorage]);
 
-  // function handleDragStart(e, params) {
+  /**
+   * Handle the drag start event and set the current dragged item.
+   */
   const handleDragStart = useCallback((e, params) => {
     item.current = params;
     setState((prev) => ({ ...prev, dragging: true }));
     e.target.addEventListener('dragend', handleDragEnd);
   }, []);
 
+  /**
+   * Handle the drag enter event and update the list of todos accordingly.
+   */
   const handleDragEnter = useCallback(
     (params) => {
       const draged = item.current;
@@ -50,11 +58,17 @@ function TodoForm() {
     [list]
   );
 
+  /**
+   * Handle the drag end event and reset the dragging state.
+   */
   const handleDragEnd = () => {
     item.current = undefined;
     setState({ dragging: false, dragEnter: false, isSaveingToLocalStorage: true });
   };
 
+  /**
+   * Get the appropriate style for the current dragged item.
+   */
   const handleStyle = useCallback((params) => {
     const draged = item.current;
     return draged.catId === params.catId && draged.taskId === params.taskId ? ' drag-bg tasks ' : ' tasks ';
@@ -68,7 +82,7 @@ function TodoForm() {
         list.map((cat, catIndex) => {
           return (
             <div
-              key={`cat-id-${catIndex}`}
+              key={`cat-id-${cat.id}-${catIndex}`}
               onDragEnter={!cat.tasks.length ? () => handleDragEnter({ catId: catIndex, taskId: 0 }) : null}
             >
               <div className="category">
@@ -79,9 +93,11 @@ function TodoForm() {
                   </div>
                   <div className="tasks-wrap">
                     {cat.tasks.map((task, taskIndex) => {
+                      if (!task) return <></>;
+
                       return (
                         <TodoItem
-                          key={`task-id-${taskIndex}`}
+                          key={`task-id-${task.id}-${taskIndex}`}
                           className={
                             dragging && dragEnter ? handleStyle({ catId: catIndex, taskId: taskIndex }) : ' tasks '
                           }
@@ -91,6 +107,7 @@ function TodoForm() {
                           onDelete={() => deleteTodo(cat.id, task.id)}
                           task={task}
                           isReadOnlyTask={cat.id === 3}
+                          onDone={() => doneTodo(cat.id, task.id)}
                         />
                       );
                     })}

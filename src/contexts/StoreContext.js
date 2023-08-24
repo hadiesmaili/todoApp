@@ -70,6 +70,21 @@ const StoreProvider = ({ children }) => {
     setTodos(newTodos);
     Storage.set('todoList', newTodos);
   };
+  const doneTodo = (catId, taskId) => {
+    let selectTask = {};
+    const newTodos = todos.map((category) => {
+      if (category.id === catId) {
+        // remove task from category
+        selectTask = category.tasks.find((task) => task.id === taskId);
+        category.tasks = category.tasks.filter((task) => task.id !== taskId);
+      } else if (category.id === 3) {
+        category.tasks.push(selectTask);
+      }
+      return category;
+    });
+    setTodos(newTodos);
+    Storage.set('todoList', newTodos);
+  };
   return (
     <StoreContext.Provider
       value={{
@@ -77,6 +92,7 @@ const StoreProvider = ({ children }) => {
         addTodo,
         deleteTodo,
         updateTodo,
+        doneTodo,
       }}
     >
       {children}

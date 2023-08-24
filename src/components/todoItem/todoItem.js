@@ -2,33 +2,10 @@
 import React, { useEffect, useState } from 'react';
 import { useComponentVisible } from '../../lib/hooks/useComponentVisible';
 import './todoItem.styles.css';
-
-export const DeleteSVG = ({ color, className, ...other }) => (
-  <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
-    <rect
-      x="12.1218"
-      y="3.63655"
-      width="1.71429"
-      height="12"
-      rx="0.857143"
-      transform="rotate(45 12.1218 3.63655)"
-      fill={color}
-      {...other}
-    />
-    <rect
-      x="3.63654"
-      y="4.84873"
-      width="1.71429"
-      height="12"
-      rx="0.857143"
-      transform="rotate(-45 3.63654 4.84873)"
-      fill={color}
-    />
-  </svg>
-);
+import { DeleteSVG } from '../../assets/icons/icons';
 
 export default function TodoItem(props) {
-  const { task, isReadOnlyTask, className, onDragStart, onDragEnter, onChangeText, onDelete } = props || {};
+  const { task, isReadOnlyTask, className, onDragStart, onDragEnter, onChangeText, onDelete, onDone } = props || {};
   const [isEditMode, setIsEditMode] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [isShowDeleteBtn, setIsShowDeleteBtn] = useState(false);
@@ -47,8 +24,22 @@ export default function TodoItem(props) {
       setIsEditMode(false);
     }
   };
+  /**
+   * Handles the change event of the input element.
+   * @param {Event} e - The event object.
+   */
   const handleOnChange = (e) => {
+    // If the task is read-only, return early
+    if (isReadOnlyTask) return;
+
+    // Update the state with the checked value of the input
     setIsChecked(e.target.checked);
+
+    // Delay the execution of onDone function by 500 milliseconds
+    setTimeout(() => {
+      // task is done staticly
+      onDone();
+    }, 500);
   };
   return (
     <div

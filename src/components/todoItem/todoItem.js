@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
 import { useComponentVisible } from '../../lib/hooks/useComponentVisible';
-import './todoItem.styles.css';
 import { DeleteSVG } from '../../assets/icons/icons';
 import { useStore } from '../../contexts/StoreContext';
 import { generateRandomNumber } from '../../lib/util/Generator';
+import './todoItem.styles.css';
 
 export default function TodoItem(props) {
   const { task, catId, className, onDragStart, onDragEnter, onChangeText, onDelete, onDone } = props || {};
@@ -13,9 +13,7 @@ export default function TodoItem(props) {
   const [isShowDeleteBtn, setIsShowDeleteBtn] = useState(false);
   const { ref, isComponentVisible } = useComponentVisible(true);
   const { addTodo } = useStore();
-  console.log('😏 => catId:', catId);
   const isReadOnlyTask = catId === 3;
-  console.log('😏 => isReadOnlyTask:', isReadOnlyTask);
 
   useEffect(() => {
     setIsEditMode(false);

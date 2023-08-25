@@ -106,7 +106,7 @@ function TodoForm() {
                           onChangeText={(text) => updateTodo(cat.id, task.id, text)}
                           onDelete={() => deleteTodo(cat.id, task.id)}
                           task={task}
-                          isReadOnlyTask={cat.id === 3}
+                          catId={cat.id}
                           onDone={() => doneTodo(cat.id, task.id)}
                         />
                       );

@@ -3,13 +3,19 @@ import React, { useEffect, useState } from 'react';
 import { useComponentVisible } from '../../lib/hooks/useComponentVisible';
 import './todoItem.styles.css';
 import { DeleteSVG } from '../../assets/icons/icons';
+import { useStore } from '../../contexts/StoreContext';
+import { generateRandomNumber } from '../../lib/util/Generator';
 
 export default function TodoItem(props) {
-  const { task, isReadOnlyTask, className, onDragStart, onDragEnter, onChangeText, onDelete, onDone } = props || {};
+  const { task, catId, className, onDragStart, onDragEnter, onChangeText, onDelete, onDone } = props || {};
   const [isEditMode, setIsEditMode] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [isShowDeleteBtn, setIsShowDeleteBtn] = useState(false);
   const { ref, isComponentVisible } = useComponentVisible(true);
+  const { addTodo } = useStore();
+  console.log('😏 => catId:', catId);
+  const isReadOnlyTask = catId === 3;
+  console.log('😏 => isReadOnlyTask:', isReadOnlyTask);
 
   useEffect(() => {
     setIsEditMode(false);
@@ -41,6 +47,18 @@ export default function TodoItem(props) {
       onDone();
     }, 500);
   };
+  const handleOnChangeText = (e) => {
+    let { value } = e.target;
+    const lines = value.split('\n');
+    if (lines.length > 1) {
+      lines.map((line) => {
+        addTodo(catId, { id: generateRandomNumber(999), text: line });
+      });
+    } else {
+      onChangeText(value);
+    }
+  };
+
   return (
     <div
       className={className}
@@ -56,9 +74,7 @@ export default function TodoItem(props) {
           className="input-task"
           type="text"
           value={task.text}
-          onChange={(e) => {
-            onChangeText(e.target.value);
-          }}
+          onChange={handleOnChangeText}
           ref={ref}
           onKeyDown={handleEnterKey}
         />
